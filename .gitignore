@@ -1,0 +1,16 @@
+# Секреты: пароль от почты и токен бота. НИКОГДА не коммитить.
+config.env
+
+# Логи запусков
+digest.log
+*.log
+
+# Локальный плист с абсолютными путями
+com.follow.mailru-digest.plist
+
+# Python
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
