@@ -4,6 +4,8 @@
   Шаблон launchd-агента для macOS.
   Замените YOUR_USERNAME на имя вашего пользователя и путь к python3,
   затем скопируйте в ~/Library/LaunchAgents/
+  Указывайте версионированный путь (python3.12, а не python3): ссылку
+  /opt/homebrew/bin/python3 Homebrew может удалить при обновлении.
 -->
 <plist version="1.0">
 <dict>
@@ -12,7 +14,7 @@
 
     <key>ProgramArguments</key>
     <array>
-        <string>/opt/homebrew/bin/python3</string>
+        <string>/opt/homebrew/bin/python3.12</string>
         <string>/Users/YOUR_USERNAME/mailru-digest/digest.py</string>
     </array>
 

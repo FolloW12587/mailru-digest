@@ -82,7 +82,7 @@ python3 digest.py
 cp com.example.mailru-digest.plist.example ~/Library/LaunchAgents/com.example.mailru-digest.plist
 ```
 
-В скопированном файле замените `YOUR_USERNAME` на имя вашего пользователя (`whoami`) и при необходимости поправьте путь к `python3` (`which python3`). Время запуска задаётся в `StartCalendarInterval` — по умолчанию 9:00.
+В скопированном файле замените `YOUR_USERNAME` на имя вашего пользователя (`whoami`) и поправьте путь к интерпретатору (`ls /opt/homebrew/bin/python3.*`). Лучше указывать версионированный путь вроде `/opt/homebrew/bin/python3.12`: ссылку `python3` без версии Homebrew может удалить при обновлении. Время запуска задаётся в `StartCalendarInterval` — по умолчанию 9:00.
 
 ```bash
 launchctl load ~/Library/LaunchAgents/com.example.mailru-digest.plist
@@ -109,6 +109,8 @@ launchctl load   ~/Library/LaunchAgents/com.example.mailru-digest.plist
 | Telegram: `chat not found` | Вы не написали боту первым, или неверный `TELEGRAM_CHAT_ID` |
 | Telegram: `Unauthorized` | Неверный `TELEGRAM_TOKEN` |
 | Ничего не приходит по расписанию | Mac спал или был выключен в назначенное время. Проверьте `digest.log` и `launchctl list \| grep mailru` |
+| `launchctl list` показывает код `78` | launchd не может запустить интерпретатор — путь к python в плисте больше не существует (например, после `brew upgrade`). Проверьте `launchctl print gui/$(id -u)/<label>` и поправьте путь |
+| `Operation not permitted` в `digest.log` | macOS не даёт этому интерпретатору доступ к папке со скриптом (`~/Documents`, `~/Desktop`). Выдайте ему доступ в «Конфиденциальность и безопасность» или перенесите скрипт в другую папку |
 | `Нет файла конфигурации` | Не выполнен `cp config.env.example config.env` |
 
 Все запуски по расписанию пишут вывод в `digest.log` рядом со скриптом.
